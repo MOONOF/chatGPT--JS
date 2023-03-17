@@ -38,7 +38,7 @@ module.exports = async (msg) => {
             // })
             const requestOenAi = async () => {
                 const apiKey = "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"
-                const body = JSON.parse("[{"role": "user", "content": "What is the OpenAI mission ? "}]")
+                const body = JSON.parse('[{"role": "user", "content": "What is the OpenAI mission ? "}]')
                 const response = await fetch("https://api.openai.com/v1/chat/completions", {
                     method: "POST",
                     headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
