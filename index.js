@@ -74,6 +74,6 @@ const wx = new Wechat();
 wx.fetchAccessToken();
 
 //挂载参数处理的中间件
-app.listen(3000, () => {
+app.listen(80, () => {
     console.log('服务器运⾏成功了');
 })
