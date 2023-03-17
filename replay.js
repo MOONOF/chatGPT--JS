@@ -37,20 +37,28 @@ module.exports = async (msg) => {
             //     content = string
             // })
             const requestOenAi = async () => {
-                const apiKey = "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"
-                const body = JSON.parse('[{"role": "user", "content": "What is the OpenAI mission ? "}]')
+                let value = msg.Content
+                const apiKey = "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"
+                const messages = JSON.parse('[{"role": "user", "content": "唐诗" }]')
+                messages[0].content = value
+                console.log("message", messages)
                 const response = await fetch("https://api.openai.com/v1/chat/completions", {
                     method: "POST",
                     headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
                     body: JSON.stringify({
-                        model: "gpt-3.5-turbo",
-                        ...body,
+                        "model": "gpt-3.5-turbo-0301",
+                        "messages": messages
                     }),
                 });
                 return await response.json();
             }
-            requestOenAi().then(r =>
+            requestOenAi().then(r => {
                 console.log("r", r)
+                let string = ''
+                let str = r.choices[0].message.content
+                console.log("str", str)
+                content = str
+            }
             )
 
 
