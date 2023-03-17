@@ -25,7 +25,7 @@ module.exports = async (msg) => {
             await axios.post('https://api.openai.com/v1/completions', {
                 prompt: msg.Content, max_tokens: 2048, model: "text-davinci-003"
             }, {
-                headers: { 'content-type': 'application/json', 'Authorization': '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' }
+                headers: { 'content-type': 'application/json', 'Authorization': 'Bearer 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' }
             }).then(response => {
                 console.log(response.data.choices[0]);
                 let string = ''
