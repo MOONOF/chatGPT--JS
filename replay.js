@@ -1,7 +1,7 @@
 // 对所有收到的消息、事件进⾏统⼀处理
 //处理接收普通消息、接收事件推送
 const fetch = require('node-fetch');
-const axios = require('axios')
+//const axios = require('axios')
 module.exports = async (msg) => {
     let that = this
     //接收⼈和发送⼈需要互换⾓⾊
@@ -22,20 +22,37 @@ module.exports = async (msg) => {
         //     content = `测试使⽤数据2`;
         // }
         try {
-            await axios.post('https://api.openai.com/v1/completions', {
-                prompt: msg.Content, max_tokens: 2048, model: "text-davinci-003"
-            }, {
-                headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer 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' }
+            // await axios.post('https://api.openai.com/v1/completions', {
+            //     prompt: msg.Content, max_tokens: 2048, model: "text-davinci-003"
+            // }, {
+            //     headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer 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' }
 
-                //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
-            }).then(response => {
-                console.log(response.data.choices[0]);
-                let string = ''
-                let str = response.data.choices[0].text
-                string = str.replace(/\r|\n/ig, "")
-                console.log(string);
-                content = string
-            })
+            //     //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
+            // }).then(response => {
+            //     console.log(response.data.choices[0]);
+            //     let string = ''
+            //     let str = response.data.choices[0].text
+            //     string = str.replace(/\r|\n/ig, "")
+            //     console.log(string);
+            //     content = string
+            // })
+            const requestOenAi = async () => {
+                const apiKey = "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"
+                const body = JSON.parse("[{"role": "user", "content": "What is the OpenAI mission ? "}]")
+                const response = await fetch("https://api.openai.com/v1/chat/completions", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
+                    body: JSON.stringify({
+                        model: "gpt-3.5-turbo",
+                        ...body,
+                    }),
+                });
+                return await response.json();
+            }
+            requestOenAi().then(r =>
+                console.log("r", r)
+            )
+
 
         } catch (error) {
             // Consider implementing your own error handling logic here
